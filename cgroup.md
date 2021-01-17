@@ -110,9 +110,84 @@ primary disk, /dev/vda, with major:minor number 252:0 and 2MiB/s is converted to
 
 In the browsers cgroup, we are limiting cpu shares to 200 and available memory to 128MB.
 
-We need to restart the cgconfig service for the changes in the /etc/cgconfig.conf file to take effect:
+We need to restart and enable  the cgconfig service for the changes in the /etc/cgconfig.conf file to take effect:
        
        systemctl restart cgconfig.service  
+       systemctl enable cgconfig.service  
+
+
+
+Our next goal is to add the processes (tasks) for which we wish to limit resources to the cgroups we created earlier.
+
+Cgred (control group rules engine daemon) is a service that moves tasks into cgroups according to parameters set in 
+the /etc/cgrules.conf file. Entries in the /etc/cgrules.conf file can take one of the two forms:
+
+    user subsystems control_group
+    or
+    user:command subsystems control_group
+
+
+user refers to a username or a groupname prefixed with the “@” character. subsystems refer to a comma-separated list
+of subsystem names. control_group represents a path to the cgroup, and command stands for a process name or a full 
+command path of a process. Entries in the /etc/cgrules.conf file can include the following extra notations:
+
+
+    @ — indicates a group instead of an individual user. For example, @admin indicates all users in the admin group.
+
+    * — represents “all”. For example, * in the user field represents all users.
+
+    % — represents an item the same as the item in the line above.
+
+
+Now let us add the programs/processes we wish to limit. Edit /etc/cgrules.conf and add the following at the bottom:
+
+
+vim /etc/cgrules.conf
+
+    *:firefox       cpu,memory      browsers/
+    *:hdparm        blkio   limitio/
+    student   blkio   limitio/
+    @admin:memhog  memory  limitmem/
+    *:cpuhog        cpu     limitcpu/
+    
+    
+We need to start the cgred service for the cgrules configuration changes to take effect, do this using the command:
+  
+    systemctl start cgred
+    systemctl enable cgred
+    
+    
+In the above lines, we are setting the following rules:
+
+    firefox processes run by any user will be automatically added to the browsers cgroup and limited in cpu 
+    and memory subsystems.
+
+    hdparm processes run by any user will be added to the limitio cgroup and will be limited in blkio subsystem 
+    according to the parameter values specified in that cgroup.
+  
+    All processes run by user student will be added to the limitio cgroup and limited in blkio subsystem.
+
+    memhog processes run by anyone in the admin group will be added to the cgroup limitmem and limited in memory subsystem.
+    
+    cpuhog processes run by any user will be added to the cgroup limitcpu and limited in cpu subsystem.    
+
+SELinux
+
+    setenforce 0
+
+
+Step 4 — Testing
+
+    sudo yum install hdparm
+    sudo hdparm --direct -t /dev/vda
+    see ouput
+    systemctl stop cgred
+    systemctl stop cgconfig.service  
+    sudo hdparm --direct -t /dev/vda
+    see output
+
+   
+  
 
 
 
