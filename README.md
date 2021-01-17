@@ -50,3 +50,25 @@ For more information about namespaces, see the ( man namespaces 7 )
      Network namespace, in particular, virtualizes the network stack. Each network namespace has its own set of resources
      like network interfaces, IP addresses, routing tables, tunnels, firewalls etc. For example, iptables rules added to a
      network namespace will only affect traffic entering and leaving that namespace.
+
+Let’s create our first network namespace, vnet0. Then we can assign the veth0 interface to this network namespace, and 
+allocating the 10.0.1.0/24 IP address range to it:
+
+    # create the vnet0 network namespace
+          ip netns add vnet0
+
+    # assign the veth0 interface to the vnet0 network namespace
+          ip link set veth0 netns vnet0
+
+    # assign the 10.0.1.0/24 IP address range to the veth0 interface
+          ip -n vnet0 addr add 10.0.1.0/24 dev veth0
+
+    # bring up the veth0 interface
+          ip -n vnet0 link set veth0 up
+
+    # bring up the lo interface, because packets destined for 10.0.1.0/24
+    # (like ping) goes through the "local" route table
+          ip -n vnet0 link set lo up 
+
+    # confirm that the interfaces are up
+          ip -n vnet0 addr show
