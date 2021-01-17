@@ -29,11 +29,11 @@ User Space/ User Mode ( Unprivileged Mode ).
  These calls are generally available as routines written in C and C++
 
 # Linux Kernel Features
-    namespace: 
-      Namespaces are one of the most important methods for organizing and identifying software objects.A namespace wraps a
-      global system resource (for example a mount point, a network device, or a hostname) in an abstraction that makes it 
-      appear to processes within the namespace that they have their own isolated instance of the global resource.
-      In short  limits what you can see (and therefore use)
+# namespace: 
+    Namespaces are one of the most important methods for organizing and identifying software objects.A namespace wraps a
+    global system resource (for example a mount point, a network device, or a hostname) in an abstraction that makes it 
+    appear to processes within the namespace that they have their own isolated instance of the global resource.
+    In short  limits what you can see (and therefore use)
 
 Namespaces provide processes with their own view of the system
 
