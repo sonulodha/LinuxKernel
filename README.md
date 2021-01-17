@@ -94,3 +94,23 @@ allocating the 10.0.1.0/24 IP address range to it:
 
       # confirm that the interfaces are up
             ip -n vnet0 addr show
+
+What happens if we try to pingthe veth0 interface from both the host and vnet0 network namespaces?
+ 
+      # veth0 no longer appears in the host network namespace
+            ip link show veth0            
+
+      # ping doesn't work from the host network namespace
+            ping -c10 10.0.1.0
+
+      # ping works from inside the vnet0 network namespace
+            ip netns exec vnet0 ping -c10 10.0.1.0
+            
+Notice that veth0 is no longer reachable from the host network namespace.
+
+Let’s look at the last ip netns exec command in the above code snippet. This command allows us to execute arbitrary 
+commands in network namespaces.
+It is comprised of two parts:
+ 1. ip netns exec vnet0 identifies the target network namespace
+ 2. ping -c10 10.0.1.0 is the command to be executed in target namespace
+
