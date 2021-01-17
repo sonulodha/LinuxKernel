@@ -45,3 +45,8 @@ Namespaces provide processes with their own view of the system
       5. PID ns - process id isolation
       6. user ns- different username(uid)
 For more information about namespaces, see the ( man namespaces 7 )
+   
+   # Example of Network namespaces
+     Network namespace, in particular, virtualizes the network stack. Each network namespace has its own set of resources
+     like network interfaces, IP addresses, routing tables, tunnels, firewalls etc. For example, iptables rules added to a
+     network namespace will only affect traffic entering and leaving that namespace.
