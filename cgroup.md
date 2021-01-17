@@ -22,10 +22,13 @@ Cgroups involve resource metering and limiting:
 You could also run the `lscgroup’ command to verify:
      lscgroup
      
-System Resources
+     
+# System Resources 
 The system resources are known as subsystems, and each subsystem has several parameters to which we could
-assign values. CentOS 7 provides ten cgroup subsystems:
-blkio — this subsystem sets limits on input/output access to and from block devices such as physical drives (disk, solid state, USB, etc.).
+assign values. CentOS 7 provides ten cgroup subsystems
+
+
+    blkio — this subsystem sets limits on input/output access to and from block devices such as physical drives (disk, solid state, USB, etc.).
 cpu — this subsystem sets limits on the available CPU time
 cpuacct — this subsystem generates automatic reports on CPU resources used by tasks in a cgroup
 cpuset — this subsystem assigns individual CPUs (on a multicore system) and memory nodes to tasks in a cgroup
