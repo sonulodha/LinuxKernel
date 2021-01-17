@@ -28,13 +28,37 @@ The system resources are known as subsystems, and each subsystem has several par
 assign values. CentOS 7 provides ten cgroup subsystems
 
 
-    blkio — this subsystem sets limits on input/output access to and from block devices such as physical drives (disk, solid state, USB, etc.).
-cpu — this subsystem sets limits on the available CPU time
-cpuacct — this subsystem generates automatic reports on CPU resources used by tasks in a cgroup
-cpuset — this subsystem assigns individual CPUs (on a multicore system) and memory nodes to tasks in a cgroup
-devices — this subsystem allows or denies access to devices by tasks in a cgroup
-freezer — this subsystem suspends or resumes tasks in a cgroup
-memory — this subsystem sets limits on memory use by tasks in a cgroup and generates automatic reports on memory resources used by those tasks
-net_cls — this subsystem tags network packets with a class identifier (classid) that allows the Linux traffic controller (tc) to identify packets originating from a particular cgroup task
-net_prio — this subsystem provides a way to dynamically set the priority of network traffic per network interface
-ns — this is the namespace subsystem     
+1. blkio — this subsystem sets limits on input/output access to and from block devices such as physical drives (disk, solid state, USB, etc.).
+
+2. cpu — this subsystem sets limits on the available CPU time
+
+3. cpuacct — this subsystem generates automatic reports on CPU resources used by tasks in a cgroup
+
+4. cpuset — this subsystem assigns individual CPUs (on a multicore system) and memory nodes to tasks in a cgroup
+
+5. devices — this subsystem allows or denies access to devices by tasks in a cgroup
+
+6. freezer — this subsystem suspends or resumes tasks in a cgroup
+
+7. memory — this subsystem sets limits on memory use by tasks in a cgroup and generates automatic reports on memory resources used by those tasks
+
+8. net_cls — this subsystem tags network packets with a class identifier (classid) that allows the Linux traffic controller (tc) to identify packets originating from a particular cgroup task
+
+9. net_prio — this subsystem provides a way to dynamically set the priority of network traffic per network interface
+
+10. ns — this is the namespace subsystem     
+
+     
+        # Step 3 — Configuration
+        
+        In this section, we will create example cgroups and set some resource limits for those cgroups. 
+        The cgroup configuration file is /etc/cgconfig.conf. Depending on the contents of the configuration file, 
+        cgconfig can create hierarchies, mount necessary file systems, create cgroups, and set subsystem parameters 
+        (resource limits) for each cgroup.
+
+
+        A hierarchy is a set of cgroups arranged in a tree, such that every task in the system is in exactly one of 
+        the cgroups in the hierarchy. In a default CentOS 7 configuration, each subsystem is put into its own hierarchy.
+
+
+
