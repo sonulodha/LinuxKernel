@@ -29,3 +29,10 @@ User Space/ User Mode ( Unprivileged Mode ).
  These calls are generally available as routines written in C and C++
 
 # Linux Kernel Features
+ 
+    Kernel namespaces (ipc, uts, mount, pid, network and user)
+    Apparmor and SELinux profiles
+    Seccomp policies
+    Chroots (using pivot_root)
+    Kernel capabilities
+    CGroups (control groups)
