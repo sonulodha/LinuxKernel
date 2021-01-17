@@ -29,7 +29,7 @@ User Space/ User Mode ( Unprivileged Mode ).
  These calls are generally available as routines written in C and C++
 
 # Linux Kernel Features
-# namespace: 
+# 1. namespace: 
     Namespaces are one of the most important methods for organizing and identifying software objects.A namespace wraps a
     global system resource (for example a mount point, a network device, or a hostname) in an abstraction that makes it 
     appear to processes within the namespace that they have their own isolated instance of the global resource.
@@ -47,28 +47,50 @@ Namespaces provide processes with their own view of the system
 For more information about namespaces, see the ( man namespaces 7 )
    
    # Example of Network namespaces
+     man ip net-ns
      Network namespace, in particular, virtualizes the network stack. Each network namespace has its own set of resources
      like network interfaces, IP addresses, routing tables, tunnels, firewalls etc. For example, iptables rules added to a
      network namespace will only affect traffic entering and leaving that namespace.
+     
+    for example,
+      1. To add a new network interface, use ip link add <interface-name> type <interface-type> <interface-arguments>...
+      2. To allocate a new IP address range to an interface (device), use ip addr add <ip-address-range> dev <device-name>
+      3. To delete a route entry from the route table, use ip route del <route-ip-range> dev <device-name>
 
+     The -n option can be used to switch the target namespace. For example, to allocate the 10.0.1.0/24 IP address range 
+     to the interface veth0 within the vnet0 network namespace, use ip -n vnet0 addr add 10.0.1.0/24 dev veth0.
+ 
+Configure the 1st Network Namespace    
+     
+    Our first task is to create a new pair of veth interfaces, veth0and veth1, by using the ip link add command:
+       
+       # create the pair of veth interfaces named, veth0 and veth1
+            ip link add veth0 type veth peer name veth1
+
+       # confirm that veth0 is created
+            ip link show veth0
+
+       # confirm that veth1 is created
+            ip link show veth1
+    
 Let’s create our first network namespace, vnet0. Then we can assign the veth0 interface to this network namespace, and 
 allocating the 10.0.1.0/24 IP address range to it:
 
-    # create the vnet0 network namespace
-          ip netns add vnet0
+       # create the vnet0 network namespace
+            ip netns add vnet0
 
-    # assign the veth0 interface to the vnet0 network namespace
-          ip link set veth0 netns vnet0
+      # assign the veth0 interface to the vnet0 network namespace
+            ip link set veth0 netns vnet0
 
-    # assign the 10.0.1.0/24 IP address range to the veth0 interface
-          ip -n vnet0 addr add 10.0.1.0/24 dev veth0
+      # assign the 10.0.1.0/24 IP address range to the veth0 interface
+            ip -n vnet0 addr add 10.0.1.0/24 dev veth0
 
-    # bring up the veth0 interface
-          ip -n vnet0 link set veth0 up
+      # bring up the veth0 interface
+            ip -n vnet0 link set veth0 up
 
-    # bring up the lo interface, because packets destined for 10.0.1.0/24
-    # (like ping) goes through the "local" route table
-          ip -n vnet0 link set lo up 
+      # bring up the lo interface, because packets destined for 10.0.1.0/24
+      # (like ping) goes through the "local" route table
+            ip -n vnet0 link set lo up 
 
-    # confirm that the interfaces are up
-          ip -n vnet0 addr show
+      # confirm that the interfaces are up
+            ip -n vnet0 addr show
