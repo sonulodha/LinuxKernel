@@ -47,6 +47,7 @@ Namespaces provide processes with their own view of the system
 For more information about namespaces, see the ( man namespaces 7 )
    
 Example of Network namespaces
+
      man ip net-ns
      Network namespace, in particular, virtualizes the network stack. Each network namespace has its own set of resources
      like network interfaces, IP addresses, routing tables, tunnels, firewalls etc. For example, iptables rules added to a
