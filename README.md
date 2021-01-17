@@ -3,24 +3,25 @@
     hardware and its processes.It communicates between the 2, managing resources as efficiently as possible.
 
 # What the kernel does
-  Memory management: Keep track of how much memory is used to store what, and where
-  Process management: Determine which processes can use the central processing unit (CPU), when, and for how long
-  Device drivers: Act as mediator/interpreter between the hardware and processes
-  System calls and security: Receive requests for service from the processes
-  File system
-  TCP/IP Networking Stacks
-  It Implements Access Control based on process identity and file permission.
+    1. Memory management: Keep track of how much memory is used to store what, and where
+    2. Process management: Determine which processes can use the central processing unit (CPU), when, and for how long
+    3. Device drivers: Act as mediator/interpreter between the hardware and processes
+    4. System calls and security: Receive requests for service from the processes
+    5. File system
+    6. TCP/IP Networking Stacks
+    7. It Implements Access Control based on process identity and file permission.
+Kernel Space/ Kernel Mode (Privileged Mode ), Direct access the Hardware.
+ 
+User Space/ User Mode ( Unprivileged Mode ).
 
-    Kernel Space/ Kernel Mode (Privileged Mode ), Direct access the Hardware.
-    User Space/ User Mode ( Unprivileged Mode ).
-       SHELL
-       Command-Line-Tool
-       Application
+    SHELL
+    Command-Line-Tool
+    Application
 
 
-    	    UserMode
-	-------------------		switching->context-switching
-	    Kernel Mode		
+    UserMode
+    -------------------		switching->context-switching
+    Kernel Mode		
 
 # System calls
  System calls provide an interface to the services made available by an Operating System.
@@ -28,12 +29,11 @@
  These calls are generally available as routines written in C and C++
 
 # Linux Kernel Features
- namespace: 
-
-    Namespaces are one of the most important methods for organizing and identifying software objects.A namespace wraps a global
-    system resource (for example a mount point, a network device, or a hostname) in an abstraction that makes it appear to
-    processes within the namespace that they have their own isolated instance of the global resource.
-    In short  limits what you can see (and therefore use)
+    namespace: 
+      Namespaces are one of the most important methods for organizing and identifying software objects.A namespace wraps a
+      global system resource (for example a mount point, a network device, or a hostname) in an abstraction that makes it 
+      appear to processes within the namespace that they have their own isolated instance of the global resource.
+      In short  limits what you can see (and therefore use)
 
 Namespaces provide processes with their own view of the system
 
