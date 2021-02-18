@@ -1,0 +1,28 @@
+1. Use the ssh command to log in to serverx as the student user. Switch to root on serverx using redhat as the password.
+2. Create a directory called /home/techdocs.
+3. Change the group ownership of the /home/techdocs directory to the techdocs group.
+4. Verify that users in the techdocs group can create and edit files in the /home/techdocs
+directory.
+5. Set permissions on the /home/techdocs directory. On the /home/techdocs directory, read/write/execute permissions (7) for the owner/user and group, and no permissions (0) for other users.
+6. Verify that the permissions are set properly.
+
+
+
+
+
+On serverx, start the psacct service.
+1 install mariadb-server pakcage
+2. Configure the mariadb service to start at system boot.
+3. Stop the rsyslog service.
+4. Configure the rsyslog service so that it does not start at system boot.
+5. Reboot serverb before evaluating the lab.
+
+
+
+
+On serverx, ensure that newly created users have passwords that must be changed every 30 days.
+1. Create the new group called consultants with a GID of 35000.
+2. Create the consultant1, consultant2, and consultant3 users with consultants as their supplementary group.
+3. Set the consultant1, consultant2, and consultant3 accounts to expire in 90 days from the current day.
+4. Change the password policy for the consultant2 account to require a new password every 15 days.
+
