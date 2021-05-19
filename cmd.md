@@ -50,7 +50,6 @@ $ cd
 
 
 
-![Absolute_and_relative_path_working_with_shell_I](../../images/Absolute_and_relative_path_working_with_shell_I.PNG)
 
 
 To change to a directory with absolute path. Run **`cd <directory_path>`**
@@ -65,7 +64,7 @@ $ cd Asia
 
 #### Lets now take a look at alternatives to the **`cd`** command
 
-![pushd_popd](../../images/pushd_popd.PNG)
+
 
 Alternative to the **`cd`** is the **`pushd\popd`** command. To change directory using pushd, run **`pushd <directory_name>`**
 ```
@@ -87,7 +86,6 @@ $ popd
 
 #### Now lets move on to look some more basic commands in linux. To learn these commands we will make use of the same directory structure as before, however now there are some new files and directories added as shown in the diagram. The goal of this task is to make sure the directory structure looks like the below diagram .
 
-![before_after_commands](../../images/before_after_commands.PNG)
 
 To move file or directory. Run **`mv <source> <destination>`** command
 ```
