@@ -84,3 +84,44 @@ It is comprised of two parts:
  1. ip netns exec vnet0 identifies the target network namespace
  2. ping -c10 10.0.1.0 is the command to be executed in target namespace
 
+
+#!/bin/bash
+fdisk /dev/vdb <<EOF
+n
+p
+1
+
++2G
+n
+p
+2
+
++1G
+t
+1
+8e
+t
+2
+8e
+w
+EOF
+partprobe
+pvcreate /dev/vdb{1,2}
+vgcreate -s 32  vg0 /dev/vdb{1,2}
+lvcreate -L 500M -n home vg0
+mkfs.ext4 /dev/vg0/home
+mkdir /tmphome
+mount /dev/vg0/home /tmphome
+rsync -Parv /home/* /tmphome
+umount /tmphome
+rm -rf /tmphome
+echo "/dev/vg0/home	/home	ext4	defaults 0 0" >> /etc/fstab
+mount -a
+rm -rf /etc/yum.repos.d/rhel_dvd.repo
+sed -i -e 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+#mv /boot/grub2/grub.cfg /root/Desktop/
+systemctl set-default multi-user.target
+echo poiuytrewqasdfghjkl | passwd root --stdin
+systemctl disable network
+systemctl disable NetworkManager
+reboot
